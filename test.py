@@ -6,8 +6,7 @@ class TestLazyDictionary(TestCase):
     def test_circular_reference_error(self):
         d = lazydict.LazyDictionary()
         d['foo'] = lambda s: s['foo']
-        with self.assertRaises(lazydict.CircularReferenceError):
-            x = d['foo']
+        self.assertRaises(lazydict.CircularReferenceError, d.__getitem__, 'foo')
 
     def test_constant_redefinition_error(self):
         d = lazydict.LazyDictionary()
@@ -15,11 +14,8 @@ class TestLazyDictionary(TestCase):
         d['b'] = 2
         d['sum'] = lambda s: s['a'] + s['b']
         x = d['sum']
-        with self.assertRaises(lazydict.ConstantRedefinitionError):
-            d['a'] = "hotdog"
-
-        with self.assertRaises(lazydict.ConstantRedefinitionError):
-            del d['a']
+        self.assertRaises(lazydict.ConstantRedefinitionError, d.__setitem__, 'a', 'hotdog')
+        self.assertRaises(lazydict.ConstantRedefinitionError, d.__delitem__, 'a')
 
     def test_lazy_evaluation(self):
         d = lazydict.LazyDictionary()
