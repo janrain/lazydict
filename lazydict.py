@@ -19,7 +19,7 @@ def get_version():
         version += "+%s" % VERSION[4]
     return version
 
-class LazyDictionaryError(StandardError):
+class LazyDictionaryError(Exception):
     pass
 
 class CircularReferenceError(LazyDictionaryError):
