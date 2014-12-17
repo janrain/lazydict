@@ -19,7 +19,7 @@ def get_version():
         version += "+%s" % VERSION[4]
     return version
 
-class LazyDictionaryError(StandardError):
+class LazyDictionaryError(Exception):
     pass
 
 class CircularReferenceError(LazyDictionaryError):
@@ -32,7 +32,9 @@ class LazyDictionary(MutableMapping):
     def __init__(self, values={ }):
         self.lock = RLock()
         self.values = copy(values)
-        self.states = {key: 'defined' for key in self.values}
+        self.states = {}
+        for key in self.values:
+            self.states[key] = 'defined'
 
     def __len__(self):
         return len(self.values)
