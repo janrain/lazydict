@@ -1,5 +1,6 @@
 LazyDictionary
 ==============
+[![Build Status](https://travis-ci.org/janrain/lazydict.png?branch=master)](https://travis-ci.org/janrain/lazydict) 
 
 Lazily-evaluated dictionaries.
 
@@ -45,3 +46,8 @@ Install
 -------
 
     pip install --pre lazydict
+
+Testing
+-------
+    
+    python setup.py test
