@@ -28,11 +28,18 @@ Topic :: Software Development :: Libraries :: Python Modules
 Operating System :: OS Independent
 """
 
+name = "lazydict"
+version = get_version()
+
+def download_url(name, version):
+    fmt = 'https://pypi.python.org/packages/source/{0}/{1}/{1}-{2}.tar.gz'
+    return fmt.format(name[0], name, version)
+
 setup(
-    name=            'LazyDictionary',
-    version=         get_version(),
+    name=            name,
+    version=         version,
     url=             'https://github.com/janrain/lazydict',
-    download_url=    'https://pypi.python.org/packages/source/L/LazyDictionary/LazyDictionary-{}.tar.gz'.format(get_version()),
+    download_url=    download_url(name, version),
     author=          "Colin von Heuring",
     author_email=    "colin@von.heuri.ng",
     description=     doc[0],

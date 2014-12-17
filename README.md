@@ -44,4 +44,4 @@ If a frozen value is updated, a `ConstantRedefinitionError` will be thrown.
 Install
 -------
 
-    pip install --pre LazyDictionary
+    pip install --pre lazydict
