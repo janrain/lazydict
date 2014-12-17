@@ -5,10 +5,10 @@ from copy import copy
 
 def get_version():
     VERSION = (     # SEMANTIC
-        0,          # major
-        1,          # minor
+        1,          # major
+        0,          # minor
         0,          # patch
-        'DEV',      # pre-release
+        'beta.1',   # pre-release
         None        # build metadata
     )
 
