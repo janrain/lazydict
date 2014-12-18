@@ -81,4 +81,4 @@ class LazyDictionary(MutableMapping):
         return str(self.values)
 
     def __repr__(self):
-        return "LazyDictionary({})".format(repr(self.values))
+        return "LazyDictionary({0})".format(repr(self.values))
