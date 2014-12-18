@@ -23,3 +23,11 @@ class TestLazyDictionary(TestCase):
         d['a'] = 1
         d['b'] = 2
         self.assertEqual(d['sum'], 3)
+
+    def test_str(self):
+        d = lazydict.LazyDictionary({'a': 1, 'b': 2})
+        self.assertEqual(str(d),   "{'a': 1, 'b': 2}")
+
+    def test_repr(self):
+        d =               lazydict.LazyDictionary({'a': 1, 'b': 2})
+        self.assertEqual(repr(d), "LazyDictionary({'a': 1, 'b': 2})")
