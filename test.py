@@ -31,3 +31,13 @@ class TestLazyDictionary(TestCase):
     def test_repr(self):
         d =               lazydict.LazyDictionary({'a': 1})
         self.assertEqual(repr(d), "LazyDictionary({'a': 1})")
+
+    def test_fibonacci(self):
+        def fib_closure(d, i):
+            return lambda d: d[str(i - 2)] + d[str(i - 1)]
+
+        f = lazydict.LazyDictionary({'0': 1, '1': 1})
+        for i in range(2, 100):
+            f[str(i)] = fib_closure(f, i)
+
+        self.assertEqual(f['99'], 354224848179261915075)
