@@ -53,10 +53,18 @@ class LazyDictionary(MutableMapping):
                         (args, varargs, keywords, defaults) = getargspec(value)
                         if len(args) == 0:
                             self.states[key] = 'evaluating'
-                            self.values[key] = value()
+                            try:
+                                self.values[key] = value()
+                            except Exception:
+                                self.states[key] = 'defined'
+                                raise
                         elif len(args) == 1:
                             self.states[key] = 'evaluating'
-                            self.values[key] = value(self)
+                            try:
+                                self.values[key] = value(self)
+                            except Exception:
+                                self.states[key] = 'defined'
+                                raise
                     self.states[key] = 'evaluated'
             return self.values[key]
 
