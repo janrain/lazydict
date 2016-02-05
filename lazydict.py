@@ -76,3 +76,9 @@ class LazyDictionary(MutableMapping):
                 raise ConstantRedefinitionError('"%s" is immutable' % key)
             del self.values[key]
             del self.states[key]
+
+    def __str__(self):
+        return str(self.values)
+
+    def __repr__(self):
+        return "LazyDictionary({0})".format(repr(self.values))
