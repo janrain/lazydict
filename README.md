@@ -8,8 +8,10 @@ Overview
 --------
 
     from lazydict import LazyDictionary
-    lazy = LazyDictionary({'a': 1, 'b': 2})
+    lazy = LazyDictionary()
     lazy['sum'] = lambda ld: ld['a'] + ld['b']
+    lazy['a'] = 1
+    lazy['b'] = 2
     print lazy['sum']
     # 3
 
@@ -22,6 +24,9 @@ A `LazyDicitonary` behaves mostly like an ordinary `dict`, except:
 
   * if the value takes 1 argument, the `LazyDictionary` instance will be
     supplied as the argument.
+
+  * if calling the value raises an error, that error is frozen, and will be raised
+    upon each subsequent read.
 
 These features allow values in the dictionary to be dependent on other values in
 the dictionary without regard to order of assignment.  It also allows lazily not
