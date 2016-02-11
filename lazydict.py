@@ -47,16 +47,28 @@ class LazyDictionary(MutableMapping):
             if key in self.states:
                 if self.states[key] == 'evaluating':
                     raise CircularReferenceError('value of "%s" depends on itself' % key)
+                elif self.states[key] == 'error':
+                    raise self.values[key]
                 elif self.states[key] == 'defined':
                     value = self.values[key]
                     if callable(value):
                         (args, varargs, keywords, defaults) = getargspec(value)
                         if len(args) == 0:
                             self.states[key] = 'evaluating'
-                            self.values[key] = value()
+                            try:
+                                self.values[key] = value()
+                            except Exception as ex:
+                                self.values[key] = ex
+                                self.states[key] = 'error'
+                                raise ex
                         elif len(args) == 1:
                             self.states[key] = 'evaluating'
-                            self.values[key] = value(self)
+                            try:
+                                self.values[key] = value(self)
+                            except Exception as ex:
+                                self.values[key] = ex
+                                self.states[key] = 'error'
+                                raise ex
                     self.states[key] = 'evaluated'
             return self.values[key]
 
