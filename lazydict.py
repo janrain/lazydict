@@ -94,3 +94,14 @@ class LazyDictionary(MutableMapping):
 
     def __repr__(self):
         return "LazyDictionary({0})".format(repr(self.values))
+
+class MutableLazyDictionary(LazyDictionary):
+    def __setitem__(self, key, value):
+        with self.lock:
+            self.values[key] = value
+            self.states[key] = 'defined'
+
+    def __delitem__(self, key):
+        with self.lock:
+            del self.values[key]
+            del self.states[key]
