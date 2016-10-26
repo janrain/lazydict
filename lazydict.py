@@ -19,7 +19,7 @@ def get_version():
         version += "+%s" % VERSION[4]
     return version
 
-CONSTANT = frozenset('evaluating', 'evaluated', 'error')
+CONSTANT = frozenset(['evaluating', 'evaluated', 'error'])
 
 class LazyDictionaryError(Exception):
     pass
