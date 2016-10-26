@@ -29,7 +29,7 @@ class ConstantRedefinitionError(LazyDictionaryError):
     pass
 
 class LazyDictionary(MutableMapping):
-    def __init__(self, values={ }):
+    def __init__(self, values={}):
         self.lock = RLock()
         self.values = copy(values)
         self.states = {}
@@ -52,7 +52,7 @@ class LazyDictionary(MutableMapping):
                 elif self.states[key] == 'defined':
                     value = self.values[key]
                     if callable(value):
-                        (args, varargs, keywords, defaults) = getargspec(value)
+                        args, _, _, _ = getargspec(value)
                         if len(args) == 0:
                             self.states[key] = 'evaluating'
                             try:
