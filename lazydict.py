@@ -19,6 +19,8 @@ def get_version():
         version += "+%s" % VERSION[4]
     return version
 
+CONSTANT = frozenset('evaluating', 'evaluated', 'error')
+
 class LazyDictionaryError(Exception):
     pass
 
@@ -77,14 +79,14 @@ class LazyDictionary(MutableMapping):
 
     def __setitem__(self, key, value):
         with self.lock:
-            if key in self.states and self.states[key][0:4] == 'eval':
+            if self.states.get(key) in CONSTANT:
                 raise ConstantRedefinitionError('"%s" is immutable' % key)
             self.values[key] = value
             self.states[key] = 'defined'
 
     def __delitem__(self, key):
         with self.lock:
-            if key in self.states and self.states[key][0:4] == 'eval':
+            if self.states.get(key) in CONSTANT:
                 raise ConstantRedefinitionError('"%s" is immutable' % key)
             del self.values[key]
             del self.states[key]
