@@ -46,6 +46,13 @@ when the node is evaluated a second time.
 
 If a frozen value is updated, a `ConstantRedefinitionError` will be thrown.
 
+MutableLazyDictionary
+---------------------
+
+    from lazydict import MutableLazyDictionary
+
+A `MutableLazyDictionary` behaves mostly like a `LazyDictionary`, except that
+its item values are not frozen when they are read.
 
 Install
 -------
